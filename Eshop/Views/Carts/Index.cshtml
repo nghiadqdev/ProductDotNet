@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Eshop.Models.Cart>
+
+@{
+    ViewData["Title"] = "Index";
+    int total = Model.Sum(c => c.Quantity * c.Product.Price);
+}
+
+<table class="table table-light table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                Sub-total
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/product/@item.Product.Image" style="width: 80px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @( (item.Product.Price * item.Quantity).ToString("#,##0") )
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductId" onclick="return confirm('Are you sure?');">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot class="table-dark">
+        <tr>
+            <th colspan="4" class="text-end">
+                Total:
+            </th>
+            <th>
+                @total.ToString("#,##0")
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@if (Model.Count() > 0)
+{
+    <a class="btn btn-primary" asp-action="Pay">Thanh toán</a>
+}

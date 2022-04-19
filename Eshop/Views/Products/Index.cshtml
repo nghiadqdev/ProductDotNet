@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Eshop.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 mb-2">
+            <div class="card h-100 border-0">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img class="card-img-top" src="~/img/product/@item.Image" alt="Card image">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                    </h4>
+                    <p class="card-text">Tác giả: @item.Description</p>
+                </div>
+                <div class="card-footer border-0 bg-white">
+                    <a class="btn btn-success" asp-controller="Carts" asp-action="Add" asp-route-id="@item.Id">
+                        <i class="fa fa-cart-plus"></i>
+                    </a>
+                    <a class="btn btn-primary" href="#">
+                        <i class="fa fa-credit-card"></i> @item.Price.ToString("#,##0 VNĐ")
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

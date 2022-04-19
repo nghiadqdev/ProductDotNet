@@ -1,0 +1,93 @@
+﻿@model Eshop.Models.Invoice
+
+@{
+    ViewData["Title"] = "Details";
+    List<InvoiceDetail> invoiceDetails = ViewBag.InvoiceDetails;
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Account.Username)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IssuedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IssuedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShippingAddress)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShippingAddress)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShippingPhone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShippingPhone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+
+<table class="table table-light">
+    <thead class="table-dark">
+        <tr>
+            <th colspan="2" class="text-center">Product</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Sub-total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in invoiceDetails)
+        {
+            <tr>
+                <td>
+                    <img style="width: 50px;" src="~/img/product/@item.Product.Image">
+                </td>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.UnitPrice</td>
+                <td>@( item.Quantity * item.UnitPrice )</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot class="table-dark">
+        <tr>
+            <th colspan="4" class="text-center">Total</th>
+            <th>@Model.Total</th>
+        </tr>
+    </tfoot>
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

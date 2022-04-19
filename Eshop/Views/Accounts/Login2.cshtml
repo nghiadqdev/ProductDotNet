@@ -1,0 +1,10 @@
+﻿@model Account
+
+<form asp-action="Login2" method="post">
+    <label asp-for="Username"></label>
+    <input asp-for="Username" /><br />
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <button type="submit">Login</button>
+    <p>@ViewBag.Msg</p>
+</form>
